@@ -1,0 +1,112 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Home</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/pokemontcg" >Ricerca Carta</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/topSeller" >Top Seller</a>
+                </li>
+                <li class="navbar-text">
+                    <span>Utenti: {{ total }}</span>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-text">
+                    <span  class="login_title" >Feedback Web App</span>
+                    <img src="/images/logo.jpg" alt="logo" class="dot"/>
+                </li>
+            </ul>
+            <ul  class="navbar-nav">
+                <li>
+                    <a class="fa fa-facebook fa-lg" style="border-radius: 5px" href="" role="button"></a>
+                    <a class="fa fa-instagram fa-lg" style="border-radius: 5px" href="" role="button">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img  src="{{ profileUrl}}" width="50" height="50" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/users?user_id={{ profile.id }}" class="dropdown-item">{{ profile.displayName }}</a>
+                        <a href="/info" class="dropdown-item">Info</a>
+                        <a href="/admin" class="dropdown-item">Pagina Admin</a>
+                        <a href="/logout" class="dropdown-item" >Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+  <main>
+      <div class="row center justify-content-center" style="margin-top: 100px">
+          {% for user in users %}
+              <div class="col-5">
+                  <div class="card" style="width: 500px;">
+                      <div class="card-content">
+                          <img src="{{ user.user_profile }}" width="50" height="50" class="rounded-circle" alt="{{ user.user_name}}">
+                          <div class="card-title">
+                              <h5>
+                                  {{ user.user_name}}
+                              </h5>
+                              {% if user.feedbacks.length > 0%}
+                                  <h5>Feedback Positivi: {{ user.feedbacks.positiveCount }}</h5>
+                                  <h5>Feedback Negativi: {{ user.feedbacks.negativeCount }}</h5>
+                              {% endif %}
+                          </div>
+
+                          {% if user.feedbacks.length > 0%}
+                              <table class="table">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Nome Utente</th>
+                                      <th>Commento</th>
+                                      <th>Valutazione</th>
+                                      <th>Data Aggiunta</th>
+                                      <th>Azione</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for feedback in user.feedbacks %}
+                                      <tr scope="row">
+                                          <td>{{ feedback.user_feed_name }}</td>
+                                          <td> {{ feedback.comment }}</td>
+                                          {% if feedback.evaluation == '1' %}
+                                              <td><span class="dot_green"></span></td>
+                                          {% elseif feedback.evaluation == '0' %}
+                                              <td><span class="dot_red"></span></td>
+                                          {% endif %}
+                                          <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                          <td>
+                                              <a href="/admin/not_approve_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a>
+                                              <a href="/admin/approve_feedback?feedback_id={{ feedback.id }}" class="fa fa-check" aria-hidden="true"></a>
+                                          </td>
+                                      </tr>
+                                  {% endfor %}
+                                  </tbody>
+                              </table>
+                          {% else %}
+                              <span> Nessun Feedback</span>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+  </main>
+    <script>
+        $(document).ready(function() {
+            $("[id*='evaluation_']") .select2();
+        });
+    </script>
+{% endblock %}

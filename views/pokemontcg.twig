@@ -1,0 +1,116 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav  mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Home</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/pokemontcg" >Ricerca Carta</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/topSeller" >Top Seller</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-text">
+                    <span  class="login_title" >Feedback Web App</span>
+                    <img src="/images/logo.jpg" alt="logo" class="dot"/>
+                </li>
+            </ul>
+            <ul  class="navbar-nav">
+                <li>
+                    <a class="fa fa-facebook fa-lg" style="border-radius: 5px" href="" role="button"></a>
+                    <a class="fa fa-instagram fa-lg" style="border-radius: 5px" href="" role="button">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img  src="{{ profileUrl}}" width="50" height="50" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/users?user_id={{ profile.id }}" class="dropdown-item">{{ profile.displayName }}</a>
+                        <a href="/info" class="dropdown-item">Info</a>
+                        {% if userRole == "1" %}
+                            <a href="/admin" class="dropdown-item">Pagina Admin</a>
+                        {% endif %}
+                        <a href="/logout" class="dropdown-item" >Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <br><br>
+        <div class="card" style="width:100%; margin-top: 100px">
+            <div class="card-content">
+                <form action="/pokemontcg" method="get">
+                    <p>Ricerca La carta:</p>
+                    <select name="search_type" style="width: 200px" id="search_type">
+                        <option value="name">Ricerca Per Nome</option>
+                        <option value="id">Ricerca Per ID</option>
+                        <option value="set">Ricerca Per Set</option>
+                    </select>
+                    <input name="search_card_name" id="search_name"  type="text" placeholder="Inserisci">
+                    <select name="search_sets"  class="hide" style="width: 200px" id="search_sets" >
+                        {% for set in sets %}
+                            <option value="{{ set.id }}">{{ set.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>Per la ricerca per nome immettere solo il nome del Pokemon Desiderato ( es. Blastoise)</p>
+                    <p>Attualmente Non E' Supportata La Ricerca Di Singole Carte ( es. Dark Charizard)</p>
+                    <input type="submit" class="btn btn-primary" >
+                </form>
+            </div>
+        </div>
+        <div class="row center" >
+            {% if data.length > 0%}
+                {%  for dt in data %}
+                    <div class="col s12">
+                        <div class="card" >
+                            <div class="card-title">
+                                <span class="search_card_content">{{ dt.name }}</span>
+                                <br>
+                                <span class="search_card_content">Set : {{ dt.set.name }}</span>
+                                <br>
+                                <span class="search_card_content">Set ID : {{ dt.set.id }}</span>
+                                <br>
+                                <span class="search_card_content"><a href="/singlecard?card_id={{ dt.id }}">Dettagli</a></span>
+                            </div>
+                            <div class="card-content">
+                                <img src="{{ dt.images.small }}">
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ dt.cardmarket.url }}" >CARDMARKET</a>
+                                <br>
+                                <a href="{{ dt.tcgplayer.url }}" >TCGPLAYER</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%  endif %}
+        </div>
+    </main>
+    <script>
+        $('#search_type').change(function (){
+            if($("#search_type").val() === 'id' ||$("#search_type").val() === 'name' ){
+                $("#search_sets").select2().next().hide();
+                $('#search_name').show();
+            }else if($("#search_type").val() === 'set'){
+                $('#search_name').hide();
+                $("#search_sets").select2().next().show();
+            }
+        });
+
+        $("#search_type").select2();
+        $("#search_sets").select2();
+        $("#search_sets").select2().next().hide();
+    </script>
+{% endblock %}

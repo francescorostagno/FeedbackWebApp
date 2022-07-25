@@ -1,0 +1,168 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Home</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/pokemontcg" >Ricerca Carta</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/topSeller" >Top Seller</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-text">
+                    <span  class="login_title" >Feedback Web App</span>
+                    <img src="/images/logo.jpg" alt="logo" class="dot"/>
+                </li>
+            </ul>
+            <ul  class="navbar-nav">
+                <li>
+                    <a class="fa fa-facebook fa-lg" style="border-radius: 5px" href="" role="button"></a>
+                    <a class="fa fa-instagram fa-lg" style="border-radius: 5px" href="" role="button">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img  src="{{ profileUrl}}" width="50" height="50" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/users?user_id={{ profile.id }}" class="dropdown-item">{{ profile.displayName }}</a>
+                        <a href="/info" class="dropdown-item">Info</a>
+                        {% if userRole == "1" %}
+                            <a href="/admin" class="dropdown-item">Pagina Admin</a>
+                        {% endif %}
+                        <a href="/logout" class="dropdown-item" >Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+  <main>
+      <div class="row center" style="margin-top: 100px">
+          <div class="col s12">
+              <div class="card" style="width: 100%;">
+                  <div class="card-content">
+                      <div class="card-title">
+                          <img src="{{ user.user_profile }}" width="50" height="50" class="rounded-circle" alt="{{ user.user_name}}">
+                          <h5>{{ user.user_name}}</h5>
+                          <br>
+                          {% if user.feedbacks.length > 0%}
+                              <h5>Feedback Positivi: {{ user.feedbacks.positiveCount }}</h5>
+                              <h5>Feedback Negativi: {{ user.feedbacks.negativeCount }}</h5>
+                          {% endif %}
+                          <span>
+                              Feedback Ricevuti:
+                          </span>
+                      </div>
+
+                      {%  if user.feedbacks.length > 0 %}
+                          <div class="scrollable_table">
+                              <table class="table justify-content-center" style="text-align:center;">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Nome Utente</th>
+                                      <th>Commento</th>
+                                      <th>Valutazione</th>
+                                      <th>Data Aggiunta</th>
+                                      <th>Stato</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for feedback in user.feedbacks %}
+                                  <tr scope="row">
+                                      <td>{{ feedback.user_feed_name }}</td>
+                                      <td> {{ feedback.comment }}</td>
+                                      {% if feedback.evaluation == '1' %}
+                                          <td><span class="dot_green"></span></td>
+                                      {% elseif feedback.evaluation == '0' %}
+                                          <td><span class="dot_red"></span></td>
+                                      {% endif %}
+                                      <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                      {% if feedback.approved == '1' %}
+                                          <td><span>Approvato</span></td>
+                                      {% elseif feedback.approved == '0' %}
+                                          <td><span>In Attesa di Approvazione</span></td>
+                                      {% endif %}
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          </div>
+
+                      {% else %}
+                          <span > Nessun Feedback</span>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br><br>
+      <div class="row center">
+          <div class="col s12">
+              <div class="card" style="width: 100%;">
+                  <div class="card-content">
+                      <div class="card-title">
+                          {% if user.feedbacksOwn.length > 0%}
+                              <h5>Feedback Positivi: {{ user.feedbacksOwn.positiveCount }}</h5>
+                              <h5>Feedback Negativi: {{ user.feedbacksOwn.negativeCount }}</h5>
+                          {% endif %}
+                                <span>
+                                    Feedback Effettuati:
+                             </span>
+                      </div>
+                      {%  if user.feedbacksOwn.length > 0 %}
+                          <div class="scrollable_table">
+                              <table class="table justify-content-center" style="text-align:center;">
+                                  <thead class="thead-dark">
+                                  <tr>
+                                      <th>Nome Utente</th>
+                                      <th>Commento</th>
+                                      <th>Valutazione</th>
+                                      <th>Data Aggiunta</th>
+                                      <th>Stato</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for feedback in user.feedbacksOwn %}
+                                  <tr scope="row">
+                                      <td>{{ feedback.user_feed_name }}</td>
+                                      <td> {{ feedback.comment }}</td>
+                                      {% if feedback.evaluation == '1' %}
+                                          <td><span class="dot_green"></span></td>
+                                      {% elseif feedback.evaluation == '0' %}
+                                          <td><span class="dot_red"></span></td>
+                                      {% endif %}
+                                      <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                      {% if feedback.approved == '1' %}
+                                          <td><span>Approvato</span></td>
+                                      {% elseif feedback.approved == '0' %}
+                                          <td><span>In Attesa di Approvazione</span></td>
+                                      {% endif %}
+                                      {% endfor %}
+                                  </tbody>
+                              </table>
+                          </div>
+
+                      {% else %}
+                          <span > Nessun Feedback</span>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </main>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+{% endblock %}

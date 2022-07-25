@@ -1,0 +1,173 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav  mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Home</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/pokemontcg" >Ricerca Carta</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/topSeller" >Top Seller</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-text">
+                    <span  class="login_title">Feedback Web App</span>
+                    <img src="/images/logo.jpg" alt="logo" class="dot"/>
+                </li>
+            </ul>
+            <ul  class="navbar-nav">
+                <li>
+                    <a class="fa fa-facebook fa-lg" style="border-radius: 5px" href="https://www.facebook.com/groups/348980822815778" role="button"></a>
+                    <a class="fa fa-instagram fa-lg" style="border-radius: 5px" href="https://www.instagram.com/pokemon_legendary_club.tcg" role="button">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img  src="{{ profileUrl}}" width="50" height="50" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/users?user_id={{ profile.id }}" class="dropdown-item">{{ profile.displayName }}</a>
+                        <a href="/info" class="dropdown-item">Info</a>
+                        {% if userRole == "1" %}
+                            <a href="/admin" class="dropdown-item">Pagina Admin</a>
+                        {% endif %}
+                        <a href="/logout" class="dropdown-item" >Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" >
+        <div class="row center" style="margin-top: 100px" id="content">
+            <div class="col s12" >
+                <div class="card" id="search_alphabet_mobile" style="align-items: center" >
+                    <label for="search_alphabet" >SELEZIONA UTENTE:</label>
+                    <select class="search_alphabet" id="search_alphabet"  onchange="location = this.value;">
+                        {% if allUsers.length > 0%}
+                            {% for allUser in allUsers %}
+                                <option value="?search_value={{ allUser.value }}">{{ allUser.name }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row center justify-content-center" id="content">
+            {% for user in users %}
+                <div class="col-5">
+                    <div class="card" style="width: 500px;">
+                        <div class="card-content">
+                            <img src="{{ user.user_profile }}" width="50" height="50" class="rounded-circle" alt="{{ user.user_name}}">
+                            <div class="card-title">
+                                <h5>
+                                    {{ user.user_name}}
+                                </h5>
+                                {% if user.feedbacks.length > 0%}
+                                    <h5>Feedback Positivi: {{ user.feedbacks.positiveCount }}</h5>
+                                    <h5>Feedback Negativi: {{ user.feedbacks.negativeCount }}</h5>
+                                {% endif %}
+                            </div>
+
+                            {% if user.feedbacks.length > 0%}
+                                <div class="scrollable_table">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nome Utente</th>
+                                            <th>Commento</th>
+                                            <th>Valutazione</th>
+                                            <th>Data Aggiunta</th>
+                                            {% if userRole == '1' %}
+                                                <th>Azione</th>
+                                            {% endif %}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for feedback in user.feedbacks %}
+                                            <tr scope="row">
+                                                <td>{{ feedback.user_feed_name }}</td>
+                                                <td> {{ feedback.comment }}</td>
+                                                {% if feedback.evaluation == '1' %}
+                                                    <td><span class="dot_green"></span></td>
+                                                {% elseif feedback.evaluation == '0' %}
+                                                    <td><span class="dot_red"></span></td>
+                                                {% endif %}
+                                                <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                                {% if userRole == '1' %}
+                                                    <td><a href="/delete_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a></td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <span> Nessun Feedback</span>
+                            {% endif %}
+                            <form action="/feedback_form" method="post" onsubmit="return openModal(this)">
+                                <p>Inserisci Il Tuo Feedback</p>
+                                <textarea name="comment" rows="10" cols="20" id="message" required></textarea>
+                                <label for="evaluation">Valutazione:</label>
+                                <select style="width:100px" class="js-example-basic-single" name="evaluation" id="evaluation_{{ user.user_id }}">
+                                    <option value="0">Negativo</option>
+                                    <option value="1">Positivo</option>
+                                </select>
+                                <br><br>
+                                <input type="hidden" name="user_feed_name" value="{{ profile.displayName }}">
+                                <input type="hidden" name="user_id" value="{{ user.user_id }}">
+                                <input type="hidden" name="user_name" value="{{  user.user_name }}">
+                                <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            $('.search_alphabet').select2();
+        });
+
+        function openModal(form){
+            event.preventDefault();
+            if(form.message.value.trim() === ""){
+                return false;
+            }
+
+            $('#dialog').remove();
+            $('#content').prepend('<div id="dialog" style="padding: 3px 0px 0px 0px;"></div>');
+            let html = '';
+            html += '<span>Il Tuo Feedback è stato inviato correttamente! Sarà analizzato al più presto!<span/>';
+            html += '<span>Grazie!<span/>';
+            $('#dialog').html(html);
+
+            $('#dialog').dialog({
+                title: 'Feedback Inviato',
+                width: 400,
+                height: 200,
+                resizable: false,
+                modal: true,
+                buttons: {
+                    Ok: function() {
+                        form.submit();
+                    }
+                }
+            });
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{
+  "name": "legendary",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "alert": "^5.0.10",
+    "async": "^3.2.2",
+    "bootstrap": "^5.1.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "^1.17.2",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.6.0",
+    "mailgun-js": "^0.22.0",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.5.0",
+    "passport-facebook": "^3.0.0",
+    "pokemontcgsdk": "^2.0.0",
+    "sqlite3": "^5.0.2",
+    "twig": "~0.10.3"
+  }
+}

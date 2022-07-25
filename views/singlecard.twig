@@ -1,0 +1,152 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/pokemontcg" >Ricerca Carta</a>
+                </li>
+                <li class="navbar-text">
+                    <a href="/topSeller" >Top Seller</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="navbar-text">
+                    <span  class="login_title" >Feedback Web App</span>
+                    <img src="/images/logo.jpg" alt="logo" class="dot"/>
+                </li>
+            </ul>
+            <ul  class="navbar-nav">
+                <li>
+                    <a class="fa fa-facebook fa-lg" style="border-radius: 5px" href="https://www.facebook.com/groups/348980822815778" role="button"></a>
+                    <a class="fa fa-instagram fa-lg" style="border-radius: 5px" href="https://www.instagram.com/pokemon_legendary_club.tcg" role="button">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img  src="{{ profileUrl}}" width="50" height="50" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/users?user_id={{ profile.id }}" class="dropdown-item">{{ profile.displayName }}</a>
+                        <a href="/info" class="dropdown-item">Info</a>
+                        {% if userRole == "1" %}
+                            <a href="/admin" class="dropdown-item">Pagina Admin</a>
+                        {% endif %}
+                        <a href="/logout" class="dropdown-item" >Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+   <main>
+       <div class="row center" style="margin-top: 100px">
+           <div class="col s12">
+               <div class="card" style="width: 100%;">
+                   <div class="card-title">
+                       <h2>{{ data.name }}</h2>
+                   </div>
+                   <div class="row">
+                       <div class="col-md-4">
+                           <img src="{{ data.images.small }}">
+                       </div>
+                       <div class="col-md-8">
+                           <div class="card-body">
+                               <div class="row">
+                                   <table class="table table-responsive-sm">
+                                       <thead>
+                                       <tr>
+                                           <th scope="col">NOME</th>
+                                           <th scope="col">SET</th>
+                                           <th scope="col">SET ID</th>
+                                           <th scope="col">NUMERO</th>
+                                           <th scope="col">ARTISTA</th>
+                                           <th scope="col">RARITA'</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                           <td>{{ data.name }}</td>
+                                           <td>{{ data.set.name }}</td>
+                                           <td>{{ data.set.id }}</td>
+                                           <td>{{ data.number }}</td>
+                                           <td>{{ data.artist }}</td>
+                                           <td>{{ data.rarity }}</td>
+                                       </tr>
+                                       </tbody>
+                                   </table>
+                               </div>
+                               <div class="row" >
+                                   <a href="{{ data.cardmarket.url }}" >CARDMARKET</a>
+                                   <table class="table table-responsive-sm">
+                                       <thead>
+                                       <tr>
+                                           <th>PREZZO DI VENDITA MEDIO</th>
+                                           <th>PREZZO PIU' BASSO</th>
+                                           <th>TRAND</th>
+                                           <th>PREZZO MEDIO ULTIMI 30 GIORNI</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                           <td>{{ data.cardmarket.prices.averageSellPrice }}€</td>
+                                           <td>{{ data.cardmarket.prices.lowPrice }}€</td>
+                                           <td>{{ data.cardmarket.prices.trendPrice }}€</td>
+                                           <td>{{ data.cardmarket.prices.avg30 }}€</td>
+                                       </tr>
+                                       </tbody>
+                                   </table>
+                               </div>
+                               <div class="row">
+                                   <a href="{{ data.tcgplayer.url }}" >TCGPLAYER</a>
+                                   <table class="table table-responsive-sm">
+                                       <thead>
+                                       <tr>
+                                           <th scope="col">RARITA'</th>
+                                           <th scope="col">PREZZO PIU' BASSO</th>
+                                           <th scope="col">PREZZO MEDIO</th>
+                                           <th scope="col">PREZZO DI VENDITA'</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                           <td>NORMALE</td>
+                                           <td>{{ data.tcgplayer.prices.normal.low }}€</td>
+                                           <td>{{ data.tcgplayer.prices.normal.mid }}€</td>
+                                           <td>{{ data.tcgplayer.prices.normal.market }}€</td>
+                                       </tr>
+                                       <tr>
+                                           <td>FOIL</td>
+                                           <td>{{ data.tcgplayer.prices.reverseHolofoil.low }}€</td>
+                                           <td>{{ data.tcgplayer.prices.reverseHolofoil.mid }}€</td>
+                                           <td>{{ data.tcgplayer.prices.reverseHolofoil.mid }}€</td>
+                                       </tr>
+                                       <tr>
+                                           <td>HOLOFOIL</td>
+                                           <td>{{ data.tcgplayer.prices.holofoil.low }}€</td>
+                                           <td>{{ data.tcgplayer.prices.holofoil.mid }}</td>
+                                           <td>{{ data.tcgplayer.prices.holofoil.market }}€</td>
+                                       </tr>
+                                       </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="card-footer">
+
+                   </div>
+               </div>
+           </div>
+       </div>
+   </main>
+
+{% endblock %}
