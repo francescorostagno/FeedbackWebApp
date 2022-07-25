@@ -33,7 +33,6 @@ pokemon.configure({
 //global.sqlite3 = sqlite3;
 global.db = connection;
 global.pokemon = pokemon;
-global.mg = mg;
 
 var app = express();
 
