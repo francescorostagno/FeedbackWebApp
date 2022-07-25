@@ -18,9 +18,6 @@ const topSeller = require('./routes/topSeller')
 const config = require('./config')
 
 const pokemon = require('pokemontcgsdk');
-const mailgun = require('mailgun-js');
-
-const mg = mailgun({apiKey: config.mailgun.apiKey, domain: config.mailgun.domain});
 
 const connection = mysql.createPool({
     host     : config.mysql.host,
