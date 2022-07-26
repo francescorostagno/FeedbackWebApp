@@ -134,6 +134,11 @@ nav{
     display: inline;
   }
 
+  .row{
+    margin-right: -53px;
+    margin-left: -53px;
+  }
+
   #search_user{
     display: none;
   }
