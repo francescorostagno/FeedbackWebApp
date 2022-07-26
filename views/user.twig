@@ -73,7 +73,8 @@
                                       <th>Nome Utente</th>
                                       <th>Commento</th>
                                       <th>Valutazione</th>
-                                      <th>Data Aggiunta</th>
+                                      <th>Valutazione</th>
+                                      <th>Piattaforma</th>
                                       <th>Stato</th>
                                   </tr>
                                   </thead>
@@ -87,6 +88,7 @@
                                       {% elseif feedback.evaluation == '0' %}
                                           <td><span class="dot_red"></span></td>
                                       {% endif %}
+                                      <td> {{ feedback.platform }}</td>
                                       <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                       {% if feedback.approved == '1' %}
                                           <td><span>Approvato</span></td>
@@ -127,6 +129,7 @@
                                       <th>Nome Utente</th>
                                       <th>Commento</th>
                                       <th>Valutazione</th>
+                                      <th>Piattaforma</th>
                                       <th>Data Aggiunta</th>
                                       <th>Stato</th>
                                   </tr>
@@ -141,6 +144,7 @@
                                       {% elseif feedback.evaluation == '0' %}
                                           <td><span class="dot_red"></span></td>
                                       {% endif %}
+                                      <td> {{ feedback.platform }}</td>
                                       <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                       {% if feedback.approved == '1' %}
                                           <td><span>Approvato</span></td>

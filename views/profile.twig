@@ -87,6 +87,7 @@
                                             <th>Nome Utente</th>
                                             <th>Commento</th>
                                             <th>Valutazione</th>
+                                            <th>Piattaforma</th>
                                             <th>Data Aggiunta</th>
                                             {% if userRole == '1' %}
                                                 <th>Azione</th>
@@ -103,6 +104,7 @@
                                                 {% elseif feedback.evaluation == '0' %}
                                                     <td><span class="dot_red"></span></td>
                                                 {% endif %}
+                                                <td> {{ feedback.platform }}</td>
                                                 <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                                 {% if userRole == '1' %}
                                                     <td><a href="/delete_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a></td>
@@ -123,6 +125,13 @@
                                     <option value="0">Negativo</option>
                                     <option value="1">Positivo</option>
                                 </select>
+                                <p>PIATTAFORMA DI ACQUISTO</p>
+                                <select style="width:100px" class="platform" name="platform" id="platform_{{ user.user_id }}">
+                                    <option value="0">Facebook</option>
+                                    <option value="1">EBAY</option>
+                                    <option value="2">Vinted</option>
+                                    <option value="3">Other</option>
+                                </select>
                                 <br><br>
                                 <input type="hidden" name="user_feed_name" value="{{ profile.displayName }}">
                                 <input type="hidden" name="user_id" value="{{ user.user_id }}">
@@ -140,6 +149,7 @@
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
             $('.search_alphabet').select2();
+            $('.platform').select2();
         });
 
         function openModal(form){

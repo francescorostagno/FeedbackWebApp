@@ -36,16 +36,6 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 });
 
-router.post('/notification',function(req, res) {
-  if( req.body.user_id && req.body.notification ){
-    updateNotificationPreference(req.body.user_id,req.body.notification, function (err,result){
-      if(result){
-        res.redirect('/users');
-      }
-    })
-  }
-
-})
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){

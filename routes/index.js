@@ -124,7 +124,7 @@ router.get('/logout', function (req, res) {
 
 router.post('/feedback_form',function(req, res) {
 
-    insertFeedback(req.body.user_name,req.body.user_id,req.body.user_feed_name, req.body.comment, req.body.evaluation, function (err,result){
+    insertFeedback(req.body.user_name,req.body.user_id,req.body.user_feed_name, req.body.comment, req.body.evaluation, req.body.platform, function (err,result){
         if(result){
             res.redirect('/profile');
         }
