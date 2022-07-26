@@ -300,6 +300,25 @@ const getUserInfo = function (user_id,cb){
     })
 }
 
+const deleteUser = function (user_id,cb){
+    if(user_id){
+        db.query("DELETE FROM user_info WHERE user_id = '" + user_id+ "'" ,function (err,res){
+            if(!err){
+                db.query("DELETE FROM feedback WHERE user_id = '" + user_id + "'" ,function (err,res){
+                    if(!err){
+                        cb(null,true)
+                    }else{
+                        cb(err,null);
+                    }
+                })
+            }else{
+                cb(err,null);
+            }
+        })
+    }else{
+        cb(true,null)
+    }
+}
 
 module.exports = {
     insertFeedback ,
@@ -316,5 +335,6 @@ module.exports = {
     updateNotificationPreference,
     getCountPositiveFeedbacks,
     getCountNegativeFeedbacks,
-    getUserInfo
+    getUserInfo,
+    deleteUser
 }
