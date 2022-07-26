@@ -72,6 +72,8 @@
                                       <th>Nome Utente</th>
                                       <th>Commento</th>
                                       <th>Valutazione</th>
+                                      <th>Piattaforma</th>
+                                      <th>Tipologia</th>
                                       <th>Data Aggiunta</th>
                                       <th>Azione</th>
                                   </tr>
@@ -86,6 +88,8 @@
                                           {% elseif feedback.evaluation == '0' %}
                                               <td><span class="dot_red"></span></td>
                                           {% endif %}
+                                          <td>{{ feedback.platform }}</td>
+                                          <td>{{ feedback.evluation_type }}</td>
                                           <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                           <td>
                                               <a href="/admin/not_approve_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a>

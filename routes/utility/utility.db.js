@@ -1,8 +1,8 @@
 
-const insertFeedback = function(user_name, user_id, user_feed_name, comment,evaluation,platform,cb){
+const insertFeedback = function(user_name, user_id, user_feed_name, comment,evaluation,platform,evaluation_type,cb){
     let date_ob = new Date().toISOString().replace(/T/, ' ').      // replace T with a space
         replace(/\..+/, '')     // delete the dot and everything after;
-    db.query("INSERT INTO feedback(user_name,user_id,user_feed_name,comment,evaluation,platform,date_added) VALUES('"+user_name+"','"+user_id+"','"+ user_feed_name +"','"+comment+"','"+evaluation+"','"+evaluation+"','"+date_ob+"')",function (err,result) {
+    db.query("INSERT INTO feedback(user_name,user_id,user_feed_name,comment,evaluation,platform,date_added) VALUES('"+user_name+"','"+user_id+"','"+ user_feed_name +"','"+comment+"','"+evaluation+"','"+platform+"','"+evaluation_type+"','"+date_ob+"')",function (err,result) {
         if(err){
             cb(err,null);
         }else{
@@ -98,6 +98,7 @@ const getFeedbackNeedApprove = function (user_id, cb) {
                         'comment': rows[j].comment,
                         'date_added': rows[j].date_added,
                         'evaluation': rows[j].evaluation,
+                        'evaluation_type': rows[j].evaluation_type,
                         'platform': rows[j].platform,
                     }
                     feedbacks.push(feedback);
@@ -134,6 +135,7 @@ const getFeedback = function (user_id,  cb){
                         'date_added': rows[j].date_added,
                         'evaluation': rows[j].evaluation,
                         'platform': rows[j].platform,
+                        'evaluation_type': rows[j].evaluation_type,
                     }
                     feedbacks.push(feedback);
                 }
@@ -199,6 +201,7 @@ const getOwnFeedback = function (user_name,cb){
                         'evaluation': rows[j].evaluation,
                         'approved': rows[j].approved,
                         'platform': rows[j].platform,
+                        'evaluation_type': rows[j].evaluation_type,
                     }
                     feedbacks.push(feedback);
                 }

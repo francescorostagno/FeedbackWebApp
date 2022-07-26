@@ -88,6 +88,7 @@
                                             <th>Commento</th>
                                             <th>Valutazione</th>
                                             <th>Piattaforma</th>
+                                            <th>Tipologia</th>
                                             <th>Data Aggiunta</th>
                                             {% if userRole == '1' %}
                                                 <th>Azione</th>
@@ -105,6 +106,7 @@
                                                     <td><span class="dot_red"></span></td>
                                                 {% endif %}
                                                 <td> {{ feedback.platform }}</td>
+                                                <td> {{ feedback.evaluation_type }}</td>
                                                 <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                                 {% if userRole == '1' %}
                                                     <td><a href="/delete_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a></td>
@@ -124,6 +126,11 @@
                                 <select style="width:100px" class="js-example-basic-single" name="evaluation" id="evaluation_{{ user.user_id }}">
                                     <option value="0">Negativo</option>
                                     <option value="1">Positivo</option>
+                                </select>
+                                <label for="evaluation">Tipologia:</label>
+                                <select style="width:100px" class="evaluation_type" name="evaluation_type" id="evaluation_type_{{ user.user_id }}">
+                                    <option value="0">Venditore</option>
+                                    <option value="1">Compratore</option>
                                 </select>
                                 <label for="platform">Piattaforma:</label>
                                 <select style="width:100px" class="platform" name="platform" id="platform_{{ user.user_id }}">
@@ -150,6 +157,7 @@
             $('.js-example-basic-single').select2();
             $('.search_alphabet').select2();
             $('.platform').select2();
+            $('.evaluation_type').select2();
         });
 
         function openModal(form){

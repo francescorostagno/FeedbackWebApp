@@ -130,6 +130,7 @@
                                       <th>Commento</th>
                                       <th>Valutazione</th>
                                       <th>Piattaforma</th>
+                                      <th>Tipologia</th>
                                       <th>Data Aggiunta</th>
                                       <th>Stato</th>
                                   </tr>
@@ -145,6 +146,7 @@
                                           <td><span class="dot_red"></span></td>
                                       {% endif %}
                                       <td> {{ feedback.platform }}</td>
+                                      <td> {{ feedback.evaluation_type }}</td>
                                       <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
                                       {% if feedback.approved == '1' %}
                                           <td><span>Approvato</span></td>
