@@ -2,7 +2,7 @@
 const insertFeedback = function(user_name, user_id, user_feed_name, comment,evaluation,platform,evaluation_type,cb){
     let date_ob = new Date().toISOString().replace(/T/, ' ').      // replace T with a space
         replace(/\..+/, '')     // delete the dot and everything after;
-    db.query("INSERT INTO feedback(user_name,user_id,user_feed_name,comment,evaluation,platform,date_added) VALUES('"+user_name+"','"+user_id+"','"+ user_feed_name +"','"+comment+"','"+evaluation+"','"+platform+"','"+evaluation_type+"','"+date_ob+"')",function (err,result) {
+    db.query("INSERT INTO feedback(user_name,user_id,user_feed_name,comment,evaluation,platform,evaluation_type,date_added) VALUES('"+user_name+"','"+user_id+"','"+ user_feed_name +"','"+comment+"','"+evaluation+"','"+platform+"','"+evaluation_type+"','"+date_ob+"')",function (err,result) {
         if(err){
             cb(err,null);
         }else{
