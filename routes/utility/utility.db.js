@@ -1,3 +1,5 @@
+const mapPlatform = ['Facebook','EBAY','Vinted','Other']
+const mapEvaluationType = ['Venditore','Compratore','Vinted','Other']
 
 const insertFeedback = function(user_name, user_id, user_feed_name, comment,evaluation,platform,evaluation_type,cb){
     let date_ob = new Date().toISOString().replace(/T/, ' ').      // replace T with a space
@@ -98,8 +100,8 @@ const getFeedbackNeedApprove = function (user_id, cb) {
                         'comment': rows[j].comment,
                         'date_added': rows[j].date_added,
                         'evaluation': rows[j].evaluation,
-                        'evaluation_type': rows[j].evaluation_type,
-                        'platform': rows[j].platform,
+                        'evaluation_type': mapEvaluationType[rows[j].evaluation_type],
+                        'platform': mapPlatform[rows[j].platform],
                     }
                     feedbacks.push(feedback);
                 }
@@ -134,8 +136,8 @@ const getFeedback = function (user_id,  cb){
                         'comment': rows[j].comment,
                         'date_added': rows[j].date_added,
                         'evaluation': rows[j].evaluation,
-                        'platform': rows[j].platform,
-                        'evaluation_type': rows[j].evaluation_type,
+                        'platform': mapPlatform[rows[j].platform],
+                        'evaluation_type': mapEvaluationType[rows[j].evaluation_type],
                     }
                     feedbacks.push(feedback);
                 }
@@ -200,8 +202,8 @@ const getOwnFeedback = function (user_name,cb){
                         'date_added': rows[j].date_added,
                         'evaluation': rows[j].evaluation,
                         'approved': rows[j].approved,
-                        'platform': rows[j].platform,
-                        'evaluation_type': rows[j].evaluation_type,
+                        'platform': mapPlatform[rows[j].platform],
+                        'evaluation_type': mapEvaluationType[rows[j].evaluation_type],
                     }
                     feedbacks.push(feedback);
                 }
