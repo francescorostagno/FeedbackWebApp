@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {getUserRole, getFeedback ,getOwnFeedback ,updateNotificationPreference} = require('./utility/utility.db.js');
+const {getUserRole, getFeedback ,getOwnFeedback ,updateNotificationPreference,deleteUser} = require('./utility/utility.db.js');
 
 /* GET users listing. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -36,6 +36,16 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 });
 
+router.post('/delete_user',function(req, res) {
+  if( req.body.user_id ){
+    deleteUser(req.body.user_id, function (err,result){
+      if(err === null){
+        res.redirect('/logout');
+      }
+    })
+  }
+
+})
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){

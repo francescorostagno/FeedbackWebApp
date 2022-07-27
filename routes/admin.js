@@ -1,7 +1,7 @@
 var express = require('express');
 const async = require("async");
 var router = express.Router();
-const {getUserRole, getTotalUsers , notApproveFeedback ,approveFeedback ,getFeedbackNeedApprove} = require('./utility/utility.db.js');
+const {getUserRole, getTotalUsers , notApproveFeedback ,approveFeedback ,getFeedbackNeedApprove,deleteUser} = require('./utility/utility.db.js');
 
 /* GET users listing. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -66,6 +66,18 @@ router.get('/not_approve_feedback',function(req, res) {
 router.get('/approve_feedback',function(req, res) {
     if( req.query.feedback_id ){
         approveFeedback(req.query.feedback_id, function (err,result){
+            if(err === null){
+                res.redirect('/admin');
+            }
+        })
+    }
+
+})
+
+
+router.get('/delete_user',function(req, res) {
+    if( req.query.user_id ){
+        deleteUser(req.query.user_id, function (err,result){
             if(err === null){
                 res.redirect('/admin');
             }
