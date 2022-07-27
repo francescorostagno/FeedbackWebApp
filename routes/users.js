@@ -39,7 +39,7 @@ router.get('/', isLoggedIn, function(req, res, next) {
 router.get('/delete_user',function(req, res) {
   if( req.query.user_id ){
     deleteUser(req.query.user_id, function (err,result){
-      if(err === null){
+      if(err !== null){
         res.redirect('/logout');
       }
     })
