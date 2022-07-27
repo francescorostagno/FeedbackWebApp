@@ -135,8 +135,8 @@ nav{
   }
 
   .row{
-    margin-right: -55px!important;
-    margin-left: -55px!important;
+    margin-right: -53px!important;
+    margin-left: -53px!important;
   }
 
   #search_user{
@@ -210,7 +210,7 @@ nav{
     font-size:6px!important;
   }
 
-  .col-5{
+  .col-6{
     max-width: 100%!important;
     flex: 0 0 100%!important;
   }
