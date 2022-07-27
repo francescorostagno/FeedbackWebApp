@@ -135,8 +135,8 @@ nav{
   }
 
   .row{
-    margin-right: -53px;
-    margin-left: -53px;
+    margin-right: -55px!important;
+    margin-left: -55px!important;
   }
 
   #search_user{
