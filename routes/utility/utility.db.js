@@ -305,6 +305,8 @@ const deleteUser = function (user_id,cb){
         db.query("DELETE FROM user_info WHERE user_id = '" + user_id+ "'" ,function (err,res){
             if(!err){
                 db.query("DELETE FROM feedback WHERE user_id = '" + user_id + "'" ,function (err,res){
+                    console.log(err);
+                    console.log(res);
                     if(!err){
                         cb(null,true)
                     }else{
