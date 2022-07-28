@@ -45,7 +45,12 @@ router.get('/delete_user',function(req, res) {
     })
   }
 
-})
+});
+
+router.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()){
