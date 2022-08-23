@@ -54,6 +54,7 @@
                 <div class="card" id="search_alphabet_mobile" style="align-items: center" >
                     <label for="search_alphabet" >SELEZIONA UTENTE:</label>
                     <select class="search_alphabet" id="search_alphabet"  onchange="location = this.value;">
+                        <option></option>
                         {% if allUsers.length > 0%}
                             {% for allUser in allUsers %}
                                 <option value="?search_value={{ allUser.value }}">{{ allUser.name }}</option>
