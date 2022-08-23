@@ -14,6 +14,8 @@
 <span>Attualmente l'applicazione risiede sull'host heroku(https://heroku.com/) ed è accessibile a tutti attraverso l'indirizzo https://feedbackwebapp.herokuapp.com.</span>
 
 <span>Il sistema di autenticazione utilizzato dall'applicazione è quello fornito da facebook, in quanto l'idea dell'applicazione è nata dopo il confronto con gli amministratori di varie community di collezionismo pokemon risiedenti all'interno del social network.</sapn>
+
+
 <img src="./public/images/login.png" style="width:400px">
 
 <span>Una volta effettuato il login l'utente è automaticamente registrato all'interno della piattaforma e potrà effettuare e/o ricevere feedback e andare a ricercare le carte e il loro valore.</span>
@@ -29,7 +31,9 @@
 registrare una piccola descrizione della trattativa e indicare su quale piattaforma è avvenuta. In questo modo possono essere registrate tutte le trattative avvenute anche su piattaforme diverse da Facebook</span>
 
 <span>Gli utenti possono essere ricercati attraverso la select posta in alto nella home.</span>
-<img src="./public/images/ricercautente.png">
+
+
+<img src="./public/images/ricercautente.png" style="width:400px">
 <span>E' presente una pagina dedicata alla visualizzazione dei "Top Seller" cioè di coloro che hanno totalizzato il numero maggiore di feedback positivi.</span>
 
 
