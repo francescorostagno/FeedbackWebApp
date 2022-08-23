@@ -157,7 +157,10 @@
     <script>
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
-            $('.search_alphabet').select2();
+            $('.search_alphabet').select2({
+                placeholder: "Seleziona un utente",
+                allowClear: true
+            });
             $('.platform').select2();
             $('.evaluation_type').select2();
         });
