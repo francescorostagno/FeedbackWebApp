@@ -81,40 +81,42 @@
                             </div>
 
                             {% if user.feedbacks.length > 0%}
-                                <table class="table">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th>Nome Utente</th>
-                                        <th>Commento</th>
-                                        <th>Valutazione</th>
-                                        <th>Piattaforma</th>
-                                        <th>Tipologia</th>
-                                        <th>Data Aggiunta</th>
-                                        {% if userRole == '1' %}
-                                            <th>Azione</th>
-                                        {% endif %}
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for feedback in user.feedbacks %}
-                                        <tr scope="row">
-                                            <td>{{ feedback.user_feed_name }}</td>
-                                            <td> {{ feedback.comment }}</td>
-                                            {% if feedback.evaluation == '1' %}
-                                                <td><span class="dot_green"></span></td>
-                                            {% elseif feedback.evaluation == '0' %}
-                                                <td><span class="dot_red"></span></td>
-                                            {% endif %}
-                                            <td> {{ feedback.platform }}</td>
-                                            <td> {{ feedback.evaluation_type }}</td>
-                                            <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                <div class="scrollable_table">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nome Utente</th>
+                                            <th>Commento</th>
+                                            <th>Valutazione</th>
+                                            <th>Piattaforma</th>
+                                            <th>Tipologia</th>
+                                            <th>Data Aggiunta</th>
                                             {% if userRole == '1' %}
-                                                <td><a href="/delete_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a></td>
+                                                <th>Azione</th>
                                             {% endif %}
                                         </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        {% for feedback in user.feedbacks %}
+                                            <tr scope="row">
+                                                <td>{{ feedback.user_feed_name }}</td>
+                                                <td> {{ feedback.comment }}</td>
+                                                {% if feedback.evaluation == '1' %}
+                                                    <td><span class="dot_green"></span></td>
+                                                {% elseif feedback.evaluation == '0' %}
+                                                    <td><span class="dot_red"></span></td>
+                                                {% endif %}
+                                                <td> {{ feedback.platform }}</td>
+                                                <td> {{ feedback.evaluation_type }}</td>
+                                                <td>{{ feedback.date_added | date('Y-m-d H:i:s') }}</td>
+                                                {% if userRole == '1' %}
+                                                    <td><a href="/delete_feedback?feedback_id={{ feedback.id }}" class="fa fa-trash" aria-hidden="true"></a></td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {% else %}
                                 <span> Nessun Feedback</span>
                             {% endif %}
