@@ -67,6 +67,7 @@
                           </div>
 
                           {% if user.feedbacks.length > 0%}
+                          <div class="scrollable_table">
                               <table class="table">
                                   <thead class="thead-dark">
                                   <tr>
@@ -100,6 +101,7 @@
                                   {% endfor %}
                                   </tbody>
                               </table>
+                          </div>
                           {% else %}
                               <span> Nessun Feedback</span>
                           {% endif %}
