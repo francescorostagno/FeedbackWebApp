@@ -27,7 +27,7 @@ const connection = mysql.createPool({
 });
 
 pokemon.configure({
-    apiKey: '3db2a4e1-2823-408d-a77f-f350ca61354f'
+    apiKey: 'XXXXXXXXXXXX'
 });
 
 //global.sqlite3 = sqlite3;
