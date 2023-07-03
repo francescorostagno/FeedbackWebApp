@@ -163,7 +163,6 @@ const deleteFeedback = function (feedback_id,cb) {
 }
 
 const getAllUsers = function (user_id, cb){
-    console.log(user_id);
     db.query("SELECT ui.* FROM user_info ui WHERE ui.user_id NOT IN (" + user_id + ") ORDER BY ui.user_name ASC" , function(err,rows){
         let users = [];
         if( rows && rows.length > 0){

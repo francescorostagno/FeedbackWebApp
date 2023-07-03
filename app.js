@@ -87,7 +87,8 @@ passport.use(new FacebookStrategy({
                         image = profile.photos[0].value;
                     }
                     console.log(profile.id);
-                    db.query("INSERT into user_info(user_id,user_name,user_profile) VALUES('" + profile.id + "','"+profile.displayName+"','"+image+"')");
+                    console.log(typeof profile.id);
+                    db.query("INSERT INTO user_info(user_id,user_name,user_profile,allow,role) VALUES('" + profile.id + "','"+profile.displayName+"','"+image+"',1,1)");
                 }else{
                     if ( typeof profile.photos !== 'undefined'){
                         image = profile.photos[0].value;
