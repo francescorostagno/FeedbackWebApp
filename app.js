@@ -72,7 +72,7 @@ passport.use(new FacebookStrategy({
     process.nextTick(function () {
         if(config.use_database){
 
-            db.query("SELECT * from user_info where user_id = " + parseInt(profile.id) ,function (err,rows){
+            db.query("SELECT * from user_info where user_id = " +profile.id ,function (err,rows){
                 if(err) {
                     console.log(err)
                     throw err;
