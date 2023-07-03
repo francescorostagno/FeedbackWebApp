@@ -79,7 +79,7 @@ passport.use(new FacebookStrategy({
                 }
                 console.log(rows);
                 console.log(profile);
-                if(rows ){
+                if(rows && rows.length() === 0){
                     console.log("There is no such user, adding now");
                     var image = '';
 
