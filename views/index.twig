@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+      <ul class="navbar-nav">
+        <li class="navbar-text">
+          <span class="login_title" >Feedback Web App</span>
+          <img src="/images/logo.jpg" alt="logo" class="dot"/>
+        </li>
+      </ul>
+  </nav>
+  <main>
+    <div class="row center">
+      <div class="col">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">AUTENTICATI TRAMITE FACEBOOK</span>
+          </div>
+          <div class="card-action">
+            <a href="/auth/facebook" class="waves-effect waves-light btn social facebook">
+              <i class="fa fa-facebook fa-lg"></i> Sign in with facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
