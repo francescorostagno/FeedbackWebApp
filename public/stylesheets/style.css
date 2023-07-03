@@ -39,6 +39,12 @@ tr td {
   color: #fff !important;
 }
 
+.set_image{
+  width: 100px;
+  height: 100%;
+}
+
+
 .fa-facebook-f:before,
 .fa-facebook:before {
   content: "\f09a";
