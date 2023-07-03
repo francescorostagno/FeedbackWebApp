@@ -37,25 +37,6 @@ const getTotalUsers = function (cb){
     })
 }
 
-const getEmailStructure = function (feedback_id,cb){
-    db.query("SELECT user_info.user_email, feedback.comment FROM user_info JOIN feedback ON feedback.user_id = user_info.user_id WHERE user_info.notification = 1 AND  = feedback.id = " + feedback_id ,function (e,r) {
-        if(e){
-            cb(e,null);
-        }else{
-            if(r){
-                let data = {
-                    'comment' : r[0].comment,
-                    'user_email': r[0].user_email
-                };
-                cb(null,data);
-            }else{
-                cb(null,false)
-            }
-        }
-
-    });
-}
-
 const approveFeedback = function (feedback_id,cb){
     db.query("UPDATE  feedback SET approved = 1 WHERE id = " + feedback_id , function(err,row){
         if(err){
@@ -326,7 +307,6 @@ module.exports = {
     insertFeedback ,
     getUserRole ,
     getTotalUsers ,
-    getEmailStructure ,
     approveFeedback,
     notApproveFeedback,
     getFeedback ,
