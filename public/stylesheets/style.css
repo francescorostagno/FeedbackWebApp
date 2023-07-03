@@ -44,6 +44,11 @@ tr td {
   height: 100%;
 }
 
+.symbol{
+  width: 20px;
+  height: 20px;
+}
+
 
 .fa-facebook-f:before,
 .fa-facebook:before {
