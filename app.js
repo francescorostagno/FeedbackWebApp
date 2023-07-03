@@ -72,13 +72,11 @@ passport.use(new FacebookStrategy({
     process.nextTick(function () {
         if(config.use_database){
 
-            db.query("SELECT * from user_info where user_id = " +profile.id ,function (err,rows){
+            db.query("SELECT * from user_info where user_id = " + profile.id ,function (err,rows){
                 if(err) {
                     console.log(err)
                     throw err;
                 }
-                console.log(rows);
-                console.log(profile);
                 if(rows && rows.length === 0){
                     console.log("There is no such user, adding now");
                     var image = '';
@@ -88,7 +86,8 @@ passport.use(new FacebookStrategy({
                     }else {
                         image = profile.photos[0].value;
                     }
-                    db.query("INSERT into user_info(user_id,user_name,user_profile) VALUES('"+profile.id+"','"+profile.displayName+"','"+image+"')");
+                    console.log(profile.id);
+                    db.query("INSERT into user_info(user_id,user_name,user_profile) VALUES('" + profile.id + "','"+profile.displayName+"','"+image+"')");
                 }else{
                     if ( typeof profile.photos !== 'undefined'){
                         image = profile.photos[0].value;
