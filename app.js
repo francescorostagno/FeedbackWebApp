@@ -67,7 +67,7 @@ passport.use(new FacebookStrategy({
       clientID: config.facebookAuth.clientID,
       clientSecret: config.facebookAuth.clientSecret,
       callbackURL: config.facebookAuth.callbackURL,
-    profileFields: ['id', 'displayName', 'photos', 'email']
+    profileFields: ['id', 'displayName', 'photos', 'emails']
     }, function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
         if(config.use_database){
@@ -77,11 +77,13 @@ passport.use(new FacebookStrategy({
                     console.log(err)
                     throw err;
                 }
+                console.log(rows);
+                console.log(profile);
                 if(rows && rows.length === 0){
                     console.log("There is no such user, adding now");
                     var email = '';
                     var image = '';
-                    console.log(profile)
+
                     if(typeof profile.emails === 'undefined' ){
                         email = 'prova@gmail.com';
                     }else {
