@@ -8,7 +8,7 @@ const async = require("async");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Legendary' });
+  res.render('index', { title: 'TempleFeedbackSite' });
 });
 
 router.get('/profile', isLoggedIn, function (req, res) {

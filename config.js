@@ -1,14 +1,18 @@
 module.exports = {
     'facebookAuth': {
-        'clientID': 'XXXXXXXXXXXX', // your App ID
-        'clientSecret': 'XXXXXXXXXXXX', // your App Secret
-        'callbackURL': 'XXXXXXXXXXXX'
+        'clientID': process.env.FACEBOOK_AUTH_CLIENT_ID, // your App ID
+        'clientSecret': process.env.FACEBOOK_CLIENT_SECRET, // your App Secret
+        'callbackURL': 'https://templefeedback.onrender.com/auth/facebook/callback'
     },
     'mysql': {
-        'host': 'XXXXXXXXXXXX',
-        'user': 'XXXXXXXXXXXX',
-        'password': 'XXXXXXXXXXXX',
-        'database': 'XXXXXXXXXXXX'
+        'host': process.env.MYSQL_HOST,
+        'user':  process.env.MYSQL_USER,
+        'password': process.env.MYSQL_PASSWORD,
+        'database': process.env.MYSQL_DATABASE,
+        'port': '3306'
+    },
+    'pokemonAPI': {
+        'apiKey': process.env.POKEMON_API
     },
     'use_database': true,
 }
