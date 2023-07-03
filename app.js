@@ -28,7 +28,7 @@ const connection = mysql.createPool({
 });
 
 pokemon.configure({
-    apiKey: 'XXXXXXXXXXXX'
+    apiKey: config.pokemonAPI.apiKey
 });
 
 //global.sqlite3 = sqlite3;
@@ -79,23 +79,16 @@ passport.use(new FacebookStrategy({
                 }
                 console.log(rows);
                 console.log(profile);
-                if(rows && rows.length === 0){
+                if(rows ){
                     console.log("There is no such user, adding now");
-                    var email = '';
                     var image = '';
-
-                    if(typeof profile.emails === 'undefined' ){
-                        email = 'prova@gmail.com';
-                    }else {
-                        email = profile.emails[0].value;
-                    }
 
                     if(typeof profile.photos === 'undefined' ){
                         image = 'https://templefeedback.onrender.com/images/logo.jpg';
                     }else {
                         image = profile.photos[0].value;
                     }
-                    db.query("INSERT into user_info(user_id,user_email,user_name,user_profile) VALUES('"+profile.id+"','"+ email +"','"+profile.displayName+"','"+image+"')");
+                    db.query("INSERT into user_info(user_id,user_email,user_name,user_profile) VALUES('"+profile.id+"','"+profile.displayName+"','"+image+"')");
                 }else{
                     if ( typeof profile.photos !== 'undefined'){
                         image = profile.photos[0].value;
