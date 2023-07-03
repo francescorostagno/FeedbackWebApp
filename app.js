@@ -72,7 +72,7 @@ passport.use(new FacebookStrategy({
     process.nextTick(function () {
         if(config.use_database){
 
-            db.query("SELECT * from user_info where user_id = "+profile.id ,function (err,rows){
+            db.query("SELECT * from user_info where user_id = " + profile.id ,function (err,rows){
                 if(err) {
                     console.log(err)
                     throw err;
@@ -81,6 +81,7 @@ passport.use(new FacebookStrategy({
                     console.log("There is no such user, adding now");
                     var email = '';
                     var image = '';
+                    console.log(profile)
                     if(typeof profile.emails === 'undefined' ){
                         email = 'prova@gmail.com';
                     }else {
