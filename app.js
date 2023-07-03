@@ -14,6 +14,7 @@ const singlecardRouter = require('./routes/singlecard');
 const infoRouter = require('./routes/info');
 const adminRouter = require('./routes/admin');
 const topSeller = require('./routes/topSeller')
+const allSetsRouter = require('./routes/allSets');
 
 const config = require('./config')
 
@@ -111,6 +112,8 @@ app.use('/singlecard', singlecardRouter);
 app.use('/info',infoRouter);
 app.use('/admin',adminRouter);
 app.use('/topSeller',topSeller);
+app.use('/all_sets', allSetsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,13 +1,18 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
-        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light  navbar-fixed-top">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse sidebar-offcanvas" id="navbarSupportedContent">
-            <ul class="navbar-nav  mr-auto">
-                <li class="nav-item active">
+        <div class="navbar-collapse collapse sidebar-offcanvas" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto ">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/users">
+                        <img src="/images/logo.png" width="60" height="60" class="d-inline-block" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/profile">Home</a>
                 </li>
                 <li class="navbar-text">
@@ -22,7 +27,7 @@
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="navbar-text">
-                    <span  class="login_title">Feedback Web App</span>
+                    <span  class="login_title" >Feedback Web App</span>
                     <img src="/images/logo.jpg" alt="logo" class="dot"/>
                 </li>
             </ul>
@@ -50,31 +55,31 @@
             </ul>
         </div>
     </nav>
-
-    <main role="main" >
-        <div class="row center justify-content-center" style="margin-top: 100px" id="content">
-            {% for user in users %}
-                <div class="col-5">
-                    <div class="card" style="width: 500px;">
+    <div class="row center initial_container" >
+        {% if data.length > 0%}
+            {%  for dt in data %}
+                <div class="col-4">
+                    <div class="card" >
+                        <div class="card-title">
+                            <span class="search_card_content">{{ dt.name }}</span>
+                            <br>
+                            <span class="search_card_content">Set : {{ dt.set.name }}</span>
+                            <br>
+                            <span class="search_card_content">Set ID : {{ dt.set.id }}</span>
+                            <br>
+                            <span class="search_card_content"><a href="/singlecard?card_id={{ dt.id }}">Dettagli</a></span>
+                        </div>
                         <div class="card-content">
-                            <img src="{{ user.userProfile }}" width="50" height="50" class="rounded-circle" alt="{{ user.username}}">
-                            <div class="card-title">
-                                <h5>
-                                    {{ user.username}}
-                                </h5>
-                                <h5>Feedback Positivi: {{ user.positive }}</h5>
-                            </div>
+                            <img src="{{ dt.images.small }}" class="set_image">
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ dt.cardmarket.url }}" >CARDMARKET</a>
+                            <br>
+                            <a href="{{ dt.tcgplayer.url }}" >TCGPLAYER</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    </main>
-
-    <script>
-        $(document).ready(function() {
-
-        });
-
-    </script>
+        {%  endif %}
+    </div>
 {% endblock %}
