@@ -88,7 +88,7 @@ passport.use(new FacebookStrategy({
                     }
 
                     if(typeof profile.photos === 'undefined' ){
-                        image = 'https://feedbackwebapp.herokuapp.com/images/logo.jpg';
+                        image = 'https://templefeedback.onrender.com/images/logo.jpg';
                     }else {
                         image = profile.photos[0].value;
                     }
